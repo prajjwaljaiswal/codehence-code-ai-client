@@ -14,40 +14,40 @@ export default defineConfig(async ({ mode }) => {
   process.env = { ...process.env, ...env };
 
   return {
-    // plugins: [
-    //   viteCommonjs(),
-    //   {
-    //     name: "handle-dynamic-imports",
-    //     transform(code, id) {
-    //       if (id.includes("generateJSX.ts")) {
-    //         return {
-    //           code: code.replace(
-    //             /import.*from ['"]\.\/images\/\${imageName}['"];?/g,
-    //             "const image = await import(`./images/${imageName}`);"
-    //           ),
-    //           map: null,
-    //         };
-    //       }
-    //     },
-    //   },
+    plugins: [
+      viteCommonjs(),
+      {
+        name: "handle-dynamic-imports",
+        transform(code, id) {
+          if (id.includes("generateJSX.ts")) {
+            return {
+              code: code.replace(
+                /import.*from ['"]\.\/images\/\${imageName}['"];?/g,
+                "const image = await import(`./images/${imageName}`);"
+              ),
+              map: null,
+            };
+          }
+        },
+      },
 
-    //   glslPlugin({
-    //     include: [
-    //       "**/*.glsl",
-    //       "**/*.wgsl",
-    //       "**/*.vert",
-    //       "**/*.frag",
-    //       "**/*.vs",
-    //       "**/*.fs",
-    //     ],
-    //     exclude: undefined,
-    //     warnDuplicatedImports: true,
-    //     defaultExtension: "glsl",
-    //     watch: true,
-    //     root: "/",
-    //   }),
+      glslPlugin({
+        include: [
+          "**/*.glsl",
+          "**/*.wgsl",
+          "**/*.vert",
+          "**/*.frag",
+          "**/*.vs",
+          "**/*.fs",
+        ],
+        exclude: undefined,
+        warnDuplicatedImports: true,
+        defaultExtension: "glsl",
+        watch: true,
+        root: "/",
+      }),
 
-    //   react(),
+      react(),
     //   electron([
     //     {
     //       // Main process entry file of the Electron App
@@ -60,7 +60,7 @@ export default defineConfig(async ({ mode }) => {
     //       },
     //     },
     //   ]),
-    // ],
+    ],
 
     base: "./", 
     build: {
@@ -81,6 +81,7 @@ export default defineConfig(async ({ mode }) => {
     },
 
     server: {
+      cors: true,
       headers: isElectron
         ? {}
         : {
