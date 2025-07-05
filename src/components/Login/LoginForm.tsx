@@ -122,7 +122,7 @@ const LoginForm = ({ onSuccess, onTabChange }: LoginFormProps) => {
             <FaCode className="text-2xl text-white" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-          We0
+          Codehence
           </h1>
         </div>
         <p className="text-[#666]">{t("login.AI_powered_development_platform")}</p>

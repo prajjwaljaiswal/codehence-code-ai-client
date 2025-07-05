@@ -202,7 +202,7 @@ function createWindow() {
             logToFile(`Loading production HTML file: ${htmlPath}`);
             mainWindow.loadFile(htmlPath);
 
-            const APP_BASE_URL = "https://we0.ai";
+            const APP_BASE_URL = "https://Codehence.ai";
 
             fetch(`${APP_BASE_URL}/wedev`, {
                 method: "GET"

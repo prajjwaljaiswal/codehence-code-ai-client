@@ -226,7 +226,7 @@ class Terminal {
           if (!this.initId) {
             this.initId = data?.split('/')[1].split('[39m')[0].trim()
           }
-          this.terminal.write(data.replaceAll(this.initId, 'We0'))
+          this.terminal.write(data.replaceAll(this.initId, 'Codehence'))
   
         },
       }),

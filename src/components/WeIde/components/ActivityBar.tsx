@@ -18,7 +18,7 @@ export function ActivityBar({
 }: ActivityBarProps) {
   // GitHub 仓库链接
   const handleGithubClick = () => {
-    window.open('https://github.com/we0-dev/we0', '_blank');
+    window.open('https://github.com/Codehence-dev/Codehence', '_blank');
   };
 
   return (

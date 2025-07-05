@@ -105,7 +105,7 @@ export function QuotaSettings() {
       {/* Buy More Button */}
       <button
         onClick={() => {
-          const url = "https://we0.ai/user";
+          const url = "https://Codehence.ai/user";
           if (window.electron?.ipcRenderer) {
             window.electron.ipcRenderer.send("open:external:url", url);
           } else {

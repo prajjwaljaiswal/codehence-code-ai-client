@@ -41,7 +41,7 @@ export function runInstallScript(scriptPath: string): Promise<void> {
 
 export async function getBinaryPath(name: string): Promise<string> {
     let cmd = process.platform === 'win32' ? `${name}.exe` : name
-    const binariesDir = path.join(os.homedir(), '.we0', 'bin')
+    const binariesDir = path.join(os.homedir(), '.Codehence', 'bin')
     const binariesDirExists = await fs.existsSync(binariesDir)
     cmd = binariesDirExists ? path.join(binariesDir, cmd) : name
     return cmd

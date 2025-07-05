@@ -139,7 +139,7 @@ export function Sidebar({
   }
 
   const openUserCenter = () => {
-    const url = "https://we0.ai/user"
+    const url = "https://Codehence.ai/user"
     if (window.electron?.ipcRenderer) {
       window.electron.ipcRenderer.send("open:external:url", url)
     } else {
@@ -246,7 +246,7 @@ export function Sidebar({
         {/* Logo */}
         <div className="p-3">
           <h1 className="text-gray-900 dark:text-white text-[14px] font-medium">
-            We0
+            Codehence
           </h1>
         </div>
 

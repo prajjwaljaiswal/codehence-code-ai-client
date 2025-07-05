@@ -1,6 +1,6 @@
 {
-  "productName": "We0",
-  "appId": "com.wecode.we0",
+  "productName": "Codehence",
+  "appId": "com.wecode.Codehence",
   "afterSign": null,
   "directories": {
     "output": "release"
