@@ -30,7 +30,6 @@ export const UploadButtons: React.FC<UploadButtonsProps> = ({
   const [figmaToken, setFigmaToken] = useState(() => localStorage.getItem('figmaToken') || '')
 
 
-  console.log("modelOptions", modelOptions)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -57,7 +56,6 @@ export const UploadButtons: React.FC<UploadButtonsProps> = ({
     setIsFigmaModalOpen(false)
   }
 
-  // 定义一个可复用的按钮样式组件
   const ToolbarButton = React.forwardRef<HTMLButtonElement, any>((props, ref) => (
     <button
       ref={ref}
@@ -162,7 +160,11 @@ export const UploadButtons: React.FC<UploadButtonsProps> = ({
 
       </div>
 
-      <div className="relative ml-2" ref={dropdownRef}>
+
+
+      {/* Multimodel Dropdown  selection dropdown*/}
+
+      {/* <div className="relative ml-2" ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
@@ -208,10 +210,10 @@ export const UploadButtons: React.FC<UploadButtonsProps> = ({
                       React.createElement(aiProvierIcon[model.provider])}
                     {model.label}
                   </div>
-                  {/* TODO 最好之后可以是 tooltip ，不想用 antd，这里不想动了 */}
+
                   <div className="flex">
                     {model.quota}
-                    {/* {Array.from(
+                    {Array.from(
                       { length: Math.floor(model.quota) },
                       (_, index) => (
                         <div key={index} className="flex">
@@ -221,14 +223,14 @@ export const UploadButtons: React.FC<UploadButtonsProps> = ({
                     )}
                     {model.quota % 1 !== 0 && (
                       <span className="icon-[line-md--star-filled-half] text-primary"></span>
-                    )} */}
+                    )}
                   </div>
                 </button>
               ))}
             </div>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   )
 }

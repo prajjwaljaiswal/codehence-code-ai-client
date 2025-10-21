@@ -60,7 +60,6 @@ export const excludeFiles = [
 ];
 
 const API_BASE = process.env.APP_BASE_URL;
-console.log(API_BASE, 'API_BASE')
 
 enum ModelTypes {
     Claude37sonnet = "claude-3-7-sonnet-20250219",
@@ -99,8 +98,8 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
     const [checkCount, setCheckCount] = useState(0);
     const [visible, setVisible] = useState(false);
     const [baseModal, setBaseModal] = useState<IModelOption>({
-        value: ModelTypes.Claude35sonnet,
-        label: "Claude 3.5 Sonnet",
+        value: ModelTypes.gpt4oMini,
+        label: "GPT-4o Mini",
         useImage: true,
         from: "default",
         quota: 2,
@@ -120,7 +119,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         setOldFiles
     } = useFileStore();
     const {mode} = useChatModeStore();
-    // 使用全局状态
+
     const {
         uploadedImages,
         addImages,
@@ -145,7 +144,6 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
 
     const updateConvertToBoltAction = convertToBoltAction(filesUpdateObj);
 
-    // 使用 ollama 模型 获取模型列表
     useEffect(() => {
         fetch(`${API_BASE}/api/model`, {
             method: "POST",
@@ -472,7 +470,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
             if (String(error).includes("Authentication required")) {
                 openModal("login");
             }
-            // 添加对 Ollama 错误的处理
+
             if (baseModal.from === "ollama") {
                 toast.error("Ollama 服务器连接失败，请检查配置");
             }
@@ -480,7 +478,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
     });
     const {status, type} = useUrlData({append});
 
-    // 官网跳转进来监听 url
+    // url
     useEffect(() => {
         if (status && type === "sketch") {
             showGuide();
@@ -528,30 +526,25 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
     const [userScrolling, setUserScrolling] = useState(false)
     const userScrollTimeoutRef = useRef<NodeJS.Timeout>()
 
-    // 处理用户滚动
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
         const target = e.target as HTMLDivElement
         const isScrolledToBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 10
 
         if (!isScrolledToBottom) {
-            // 用户正在滚动查看历史消息
             setUserScrolling(true)
             
-            // 清除之前的定时器
             if (userScrollTimeoutRef.current) {
                 clearTimeout(userScrollTimeoutRef.current)
             }
             
-            // 设置新的定时器，3秒后允许自动滚动
             userScrollTimeoutRef.current = setTimeout(() => {
                 setUserScrolling(false)
             }, 3000)
         }
     }
 
-    // 修改滚动到底部的函数
     const scrollToBottom = () => {
-        if (userScrolling) return // 如果用户正在滚动，不执行自动滚动
+        if (userScrolling) return
 
         const messageContainer = document.querySelector('.message-container')
         if (messageContainer) {
@@ -559,7 +552,6 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         }
     }
 
-    // 在组件卸载时清理定时器
     useEffect(() => {
         return () => {
             if (userScrollTimeoutRef.current) {
@@ -568,10 +560,8 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         }
     }, [])
 
-    // 添加上传状态跟踪
     const [isUploading, setIsUploading] = useState(false);
     const filterMessages = messages.filter((e) => e.role !== "system");
-    // 修改上传处理函数
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.length || isUploading) return;
         setIsUploading(true);
@@ -621,7 +611,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         e.target.value = "";
     };
 
-    // 修改提交处理函数
+
     const handleSubmitWithFiles = async (
         _: React.KeyboardEvent,
         text?: string
@@ -629,11 +619,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         if (!text && !input.trim() && uploadedImages.length === 0) return;
 
         try {
-            // 处理文件引用
-            // const processedInput = await processFileReferences(input);
-            // 如果是 ollama类型 模型 需要走单独逻辑，不走云端
 
-            // 保存当前的图片附件
             const currentAttachments = uploadedImages.map((img) => ({
                 id: img.id,
                 name: img.id,
@@ -643,7 +629,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
                 url: img.url,
             }));
             console.log(JSON.stringify(uploadedImages), JSON.stringify(currentAttachments), 'currentAttachments')
-            // 先清理图片状态
+
             clearImages();
 
             append(
@@ -665,7 +651,7 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         }
     };
 
-    // 修改键盘提交处理
+
     const handleKeySubmit = (e: React.KeyboardEvent) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -673,7 +659,6 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         }
     };
 
-    // 修改粘贴处理函数
     const handlePaste = async (e: ClipboardEvent) => {
         if (isUploading) return;
 
@@ -728,7 +713,6 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         }
     };
 
-    // 添加粘贴事件监听
     useEffect(() => {
         const textarea = textareaRef.current;
         if (!textarea) return;
@@ -739,7 +723,6 @@ export const BaseChat = ({uuid: propUuid}: { uuid?: string }) => {
         };
     }, []);
 
-    // 添加拖拽处理函数
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();

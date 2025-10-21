@@ -532,13 +532,13 @@ export const ChatInput: React.FC<ChatInputPropsType> = ({
                     );
                   }}
                 >
-                  {chatMode === ChatMode.Chat ? (
-                    <MessageSquare
-                      className={classNames("w-4 h-4", "text-blue-400")}
-                    />
-                  ) : (
-                    <Code2 className={classNames("w-4 h-4", "text-blue-400")} />
-                  )}
+                    {chatMode === ChatMode.Chat ? (
+                      <MessageSquare
+                        className={classNames("w-4 h-4", "text-blue-400")}
+                      />
+                    ) : (
+                      <Code2 className={classNames("w-4 h-4", "text-blue-400")} />
+                    )}
                   <span className="absolute px-2 py-1 mb-2 text-xs text-gray-200 transition-opacity -translate-x-1/2 bg-gray-800 rounded opacity-0 bottom-full left-1/2 group-hover:opacity-100 whitespace-nowrap">
                     {chatMode}
                   </span>
